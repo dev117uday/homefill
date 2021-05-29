@@ -29,8 +29,8 @@ func VerifyJwt(tokenString string) (string, error) {
 	}
 
 	if time.Now().Add(time.Second * 50).After(t) {
-		return "", fmt.Errorf("time is after")
-	} else {
 		return claims["userid"].(string), nil
+	} else {
+		return "", fmt.Errorf("time is after")
 	}
 }
