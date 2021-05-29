@@ -1,7 +1,7 @@
 package service
 
 import (
-	"errors"
+	"fmt"
 	"homefill/backend/auth"
 	"homefill/backend/db"
 	"homefill/backend/model"
@@ -11,13 +11,12 @@ func GenerateJwtTokenService(user *model.User) (string, error) {
 
 	err := db.InsertUser(user)
 	if err != nil {
-		return "", errors.New("error inserting user")
+		return "", fmt.Errorf("%s", err)
 	}
 
 	token, err := auth.GenerateJwtToken(user.ID)
-
 	if err != nil {
-		return "", errors.New("error generating jwt")
+		return "", fmt.Errorf("%s", err)
 	}
 
 	return token, nil

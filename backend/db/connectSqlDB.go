@@ -32,5 +32,4 @@ func RunDbScripts() {
 	if err != nil {
 		log.Fatal("unable to connect to db")
 	}
-
 }

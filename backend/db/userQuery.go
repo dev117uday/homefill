@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"homefill/backend/model"
-	"log"
 )
 
 func GetUserFromId(id string) (*model.User, error) {
@@ -16,10 +15,9 @@ func GetUserFromId(id string) (*model.User, error) {
 
 	switch {
 	case err == sql.ErrNoRows:
-		return nil, fmt.Errorf("user nf")
+		return nil, fmt.Errorf("error : %s", err)
 	case err != nil:
-		log.Printf("Query error: %v\n", err)
-		return nil, fmt.Errorf("qe")
+		return nil, fmt.Errorf("error : %s", err)
 	default:
 	}
 
@@ -34,11 +32,12 @@ func InsertUser(user *model.User) error {
 
 	result, err := DB.Exec(query)
 	if err != nil {
-		return err
+		return fmt.Errorf("error : %s", err)
 	}
 	_, err = result.RowsAffected()
 	if err != nil {
-		return err
+		return fmt.Errorf("error : %s", err)
 	}
+
 	return nil
 }

@@ -8,9 +8,12 @@ import (
 func StartServer() {
 	app := fiber.New()
 
+	// Universally Accessible Routes
 	app.Get("/", HomeRoute)
 	app.Get("/login", LoginRoute)
 	app.Get("/callback", AuthCallBack)
+
+	app.Get("/user", GetUserInfo)
 
 	app.Listen(":8080")
 }

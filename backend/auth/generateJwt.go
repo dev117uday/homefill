@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"fmt"
 	config "homefill/backend/configs"
 	"time"
 
@@ -12,22 +13,18 @@ type Claims struct {
 	jwt.StandardClaims
 }
 
-// TODO error handling
+// GenerateJwtToken : generates jwt token from given user id with expire time 3 hours
 func GenerateJwtToken(userId string) (string, error) {
-	expirationTime := time.Now().Add(time.Minute * 5)
+	token := jwt.New(jwt.SigningMethodHS256)
 
-	claims := &Claims{
-		UserId: userId,
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: expirationTime.Unix(),
-		},
-	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	key := []byte(config.JWT_KEY)
-	tokenString, err := token.SignedString(key)
+	claims := token.Claims.(jwt.MapClaims)
+	claims["userid"] = userId
+	claims["time"] = time.Now().Add(time.Hour * 3)
+
+	tokenString, err := token.SignedString(config.JWT_KEY)
+
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("something went wrong %s", err)
 	}
-
 	return tokenString, nil
 }

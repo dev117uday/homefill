@@ -13,12 +13,18 @@ import (
 )
 
 func HomeRoute(c *fiber.Ctx) error {
+	return c.SendStatus(http.StatusOK)
+}
 
-	// TODO : proper error handling in getuserfromid func
-	user, err := db.GetUserFromId(`118366008323505800389`)
+func GetUserInfo(c *fiber.Ctx) error {
 
-	// TODO : proper error handling when return
+	jwtToken := c.Get("Authorization")[7:]
+	userId, err := auth.VerifyJwt(jwtToken)
+	if err != nil {
+		return c.SendStatus(http.StatusUnauthorized)
+	}
 
+	user, err := db.GetUserFromId(userId)
 	if err != nil {
 		return c.SendStatus(http.StatusNotFound)
 	}
@@ -46,7 +52,6 @@ func AuthCallBack(c *fiber.Ctx) error {
 	var user model.User
 	json.Unmarshal(content, &user)
 	token, err := service.GenerateJwtTokenService(&user)
-
 	if err != nil {
 		return c.SendStatus(http.StatusInternalServerError)
 	}

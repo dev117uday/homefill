@@ -17,7 +17,7 @@ var (
 	State                string
 	BACKEND_URL          string
 	FRONTEND_URL         string
-	JWT_KEY              string
+	JWT_KEY              []byte
 	SQL_DB_USER          string
 	SQL_DB_PASS          string
 	SQL_DB_DB            string
@@ -29,14 +29,14 @@ var (
 func LoadConfigs() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatal("error loading .env file")
 	}
 
 	GOOGLE_Client_ID = os.Getenv("GOOGLE_Client_ID")
 	GOOGLE_Client_Secret = os.Getenv("GOOGLE_Client_Secret")
 	BACKEND_URL = os.Getenv("BACKEND_URL")
 	FRONTEND_URL = os.Getenv("FRONTEND_URL")
-	JWT_KEY = os.Getenv("JWT_KEY")
+	JWT_KEY = []byte(os.Getenv("JWT_KEY"))
 	SQL_DB_USER = os.Getenv("SQL_DB_USER")
 	SQL_DB_PASS = os.Getenv("SQL_DB_PASS")
 	SQL_DB_DB = os.Getenv("SQL_DB_DB")
