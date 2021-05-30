@@ -1,7 +1,10 @@
 package routes
 
 import (
+	config "homefill/backend/config"
+
 	"github.com/gofiber/fiber/v2"
+	"github.com/sirupsen/logrus"
 )
 
 // StartServer : start server on port and listen to routes
@@ -13,8 +16,19 @@ func StartServer() {
 	app.Get("/login", LoginRoute)
 	app.Get("/callback", AuthCallBack)
 
-	// User Routes : PROTECTED
+	// -------------- PROTECTED --------------
+
+	// User Routes
 	app.Get("/user", GetUserInfo)
 
-	app.Listen(":8080")
+	// ---------------------------------------
+
+	// Starting Server
+	err := app.Listen(config.PORT)
+	if err != nil {
+		config.Log.WithFields(logrus.Fields{
+			"fn":  "StartServer",
+			"err": err.Error(),
+		}).Fatal("unable to start server")
+	}
 }

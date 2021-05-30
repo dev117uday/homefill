@@ -2,10 +2,10 @@ package config
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/sirupsen/logrus"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 )
@@ -24,12 +24,27 @@ var (
 	SQL_DB_HOST          string
 	SQL_DB_PORT          string
 	PGSQL_CS             string
+	PORT                 string
 )
 
+var Log = logrus.New()
+
 func LoadConfig() {
-	err := godotenv.Load()
+
+	// You could set this to any `io.Writer` such as a file
+	file, err := os.OpenFile("logrus.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err == nil {
+		Log.Out = file
+	} else {
+		Log.Fatal("Failed to log to file, using default stderr")
+	}
+
+	err = godotenv.Load()
 	if err != nil {
-		log.Fatal("error loading .env file")
+		Log.WithFields(logrus.Fields{
+			"fn":  "LoadConfig",
+			"err": err.Error(),
+		}).Fatal("unable to load configs")
 	}
 
 	GOOGLE_Client_ID = os.Getenv("GOOGLE_Client_ID")
@@ -43,6 +58,7 @@ func LoadConfig() {
 	SQL_DB_HOST = os.Getenv("SQL_DB_HOST")
 	SQL_DB_PORT = os.Getenv("SQL_DB_PORT")
 	State = os.Getenv("State")
+	PORT = ":" + os.Getenv("State")
 
 	GOOGLEAuthConfig.RedirectURL = fmt.Sprintf("%s/callback", BACKEND_URL)
 	GOOGLEAuthConfig.ClientID = GOOGLE_Client_ID
@@ -50,5 +66,10 @@ func LoadConfig() {
 	GOOGLEAuthConfig.Scopes = []string{"https://www.googleapis.com/auth/userinfo.profile"}
 	GOOGLEAuthConfig.Endpoint = google.Endpoint
 	PGSQL_CS = fmt.Sprintf("user=%s dbname=%s password=%s host=%s port=%s sslmode=disable", SQL_DB_USER, SQL_DB_DB, SQL_DB_PASS, SQL_DB_HOST, SQL_DB_PORT)
+
+	Log.WithFields(logrus.Fields{
+		"fn":  "LoadConfig",
+		"err": "None",
+	}).Info("good to go")
 
 }

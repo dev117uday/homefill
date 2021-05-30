@@ -7,7 +7,7 @@
 ### Code Snippets
 
 ```go
-conf.Log.WithFields(logrus.Fields{
+config.Log.WithFields(logrus.Fields{
 	"fn":  "ConnectTODB",
 	"err": err.Error(),
 }).Fatal("unable to connect to db")
