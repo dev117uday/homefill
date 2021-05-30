@@ -2,9 +2,9 @@ package routes
 
 import (
 	config "homefill/backend/config"
+	"homefill/backend/logs"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/sirupsen/logrus"
 )
 
 // StartServer : start server on port and listen to routes
@@ -26,9 +26,6 @@ func StartServer() {
 	// Starting Server
 	err := app.Listen(config.PORT)
 	if err != nil {
-		config.Log.WithFields(logrus.Fields{
-			"fn":  "StartServer",
-			"err": err.Error(),
-		}).Fatal("unable to start server")
+		logs.LogIt(logs.LogFatal, "StartServer", "unable to start server", err)
 	}
 }

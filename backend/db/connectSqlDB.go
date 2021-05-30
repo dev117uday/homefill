@@ -3,9 +3,9 @@ package db
 import (
 	"database/sql"
 	config "homefill/backend/config"
+	"homefill/backend/logs"
 
 	_ "github.com/lib/pq"
-	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -13,14 +13,10 @@ var (
 )
 
 func ConnectTODB() {
-
 	db, _ := sql.Open("postgres", config.PGSQL_CS)
 	_, err := db.Exec("select VERSION();")
 	if err != nil {
-		config.Log.WithFields(logrus.Fields{
-			"fn":  "ConnectTODB",
-			"err": err.Error(),
-		}).Fatal("unable to connect to db")
+		logs.LogIt(logs.LogFatal, "ConnectTODB", "unable to connect to db", err)
 	}
 	DB = db
 }
@@ -35,9 +31,6 @@ func RunDBScripts() {
 	`)
 
 	if err != nil {
-		config.Log.WithFields(logrus.Fields{
-			"fn":  "RunDBScripts",
-			"err": err.Error(),
-		}).Fatal("unable to create db table")
+		logs.LogIt(logs.LogFatal, "ConnectTODB", "unable to create db table", err)
 	}
 }

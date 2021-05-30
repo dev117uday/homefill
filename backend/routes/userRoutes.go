@@ -2,8 +2,8 @@ package routes
 
 import (
 	"encoding/json"
-	"homefill/backend/auth"
 	"homefill/backend/db"
+	"homefill/backend/service"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
@@ -11,15 +11,14 @@ import (
 
 func GetUserInfo(c *fiber.Ctx) error {
 
-	jwtToken := c.Get("Authorization")[7:]
-	userId, err := auth.VerifyJwt(jwtToken)
+	id, err := service.JwtMiddleWare(c)
 	if err != nil {
-		return c.SendStatus(http.StatusUnauthorized)
+		return err
 	}
 
-	user, err := db.GetUserFromId(userId)
+	user, err := db.GetUserFromId(id)
 	if err != nil {
-		return c.SendStatus(http.StatusNotFound)
+		return err
 	}
 
 	data, err := json.Marshal(user)

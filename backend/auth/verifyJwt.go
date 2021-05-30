@@ -3,6 +3,8 @@ package auth
 import (
 	"fmt"
 	config "homefill/backend/config"
+	"homefill/backend/errset"
+	"homefill/backend/logs"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -12,12 +14,15 @@ func VerifyJwt(tokenString string) (string, error) {
 
 	tkn, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, err := token.Method.(*jwt.SigningMethodHMAC); !err {
-			return nil, fmt.Errorf("there was an error")
+			logs.LogIt(logs.LogWarn, "VerifyJwt", "error in jwt verfication", fmt.Errorf("false"))
+			return nil, errset.ErrBadRequest
 		}
 		return config.JWT_KEY, nil
 	})
+
 	if err != nil {
-		return "", fmt.Errorf("error : %s", err)
+		logs.LogIt(logs.LogWarn, "VerifyJwt", "error in jwt parsing", err)
+		return "", errset.ErrUnAuthorized
 	}
 
 	claims := tkn.Claims.(jwt.MapClaims)
@@ -25,12 +30,13 @@ func VerifyJwt(tokenString string) (string, error) {
 	t, err := time.Parse(time.RFC3339, s)
 
 	if err != nil {
-		return "", fmt.Errorf("error : %s", err)
+		logs.LogIt(logs.LogWarn, "VerifyJwt", "error in time parsing", err)
+		return "", errset.ErrBadRequest
 	}
 
 	if time.Now().Before(t) {
 		return claims["userid"].(string), nil
 	} else {
-		return "", fmt.Errorf("time is after")
+		return "", errset.ErrUnAuthorized
 	}
 }
