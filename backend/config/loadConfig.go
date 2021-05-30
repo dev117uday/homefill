@@ -26,7 +26,7 @@ var (
 	PGSQL_CS             string
 )
 
-func LoadConfigs() {
+func LoadConfig() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("error loading .env file")

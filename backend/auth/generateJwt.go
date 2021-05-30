@@ -2,7 +2,7 @@ package auth
 
 import (
 	"fmt"
-	config "homefill/backend/configs"
+	config "homefill/backend/config"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"

@@ -13,6 +13,7 @@ func StartServer() {
 	app.Get("/login", LoginRoute)
 	app.Get("/callback", AuthCallBack)
 
+	// User Routes : PROTECTED
 	app.Get("/user", GetUserInfo)
 
 	app.Listen(":8080")

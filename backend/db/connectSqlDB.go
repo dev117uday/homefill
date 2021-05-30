@@ -2,7 +2,7 @@ package db
 
 import (
 	"database/sql"
-	config "homefill/backend/configs"
+	config "homefill/backend/config"
 	"log"
 
 	_ "github.com/lib/pq"
@@ -20,7 +20,7 @@ func ConnectTODB() {
 	}
 }
 
-func RunDbScripts() {
+func RunDBScripts() {
 	_, err := DB.Exec(`
 		create table if not exists user_info (
 			UserId varchar(30) primary key,

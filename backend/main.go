@@ -1,14 +1,14 @@
 package main
 
 import (
-	config "homefill/backend/configs"
+	config "homefill/backend/config"
 	"homefill/backend/db"
 	"homefill/backend/routes"
 )
 
 func main() {
-	config.LoadConfigs()
+	config.LoadConfig()
 	db.ConnectTODB()
-	db.RunDbScripts()
+	db.RunDBScripts()
 	routes.StartServer()
 }

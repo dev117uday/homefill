@@ -2,7 +2,7 @@ package auth
 
 import (
 	"fmt"
-	config "homefill/backend/configs"
+	config "homefill/backend/config"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -28,7 +28,7 @@ func VerifyJwt(tokenString string) (string, error) {
 		return "", fmt.Errorf("error : %s", err)
 	}
 
-	if time.Now().Add(time.Second * 50).After(t) {
+	if time.Now().Before(t) {
 		return claims["userid"].(string), nil
 	} else {
 		return "", fmt.Errorf("time is after")
