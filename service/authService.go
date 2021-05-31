@@ -5,7 +5,6 @@ import (
 	"homefill/backend/db"
 	"homefill/backend/errset"
 	"homefill/backend/model"
-	"net/http"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -30,14 +29,7 @@ func JwtMiddleWare(c *fiber.Ctx) (string, error) {
 	id, err := auth.VerifyJwt(jwtToken)
 
 	if err != nil {
-		switch err {
-		case errset.ErrBadRequest:
-			return "", c.SendStatus(http.StatusBadRequest)
-		case errset.ErrInternalServer:
-			return "", c.SendStatus(http.StatusInternalServerError)
-		case errset.ErrUnAuthorized:
-			return "", c.SendStatus(http.StatusUnauthorized)
-		}
+		return "", err
 	}
 	return id, nil
 }

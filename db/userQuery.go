@@ -21,8 +21,7 @@ func GetUserFromId(id string) (*model.User, error) {
 		return nil, errset.ErrNotFound
 	case err != nil:
 		logs.LogIt(logs.LogWarn, "GetUserFromId", "unable to run query", err)
-		return nil, errset.ErrInternalServer
-	default:
+		return nil, errset.ErrNotFound
 	}
 
 	return &user, nil

@@ -1,8 +1,7 @@
 package routes
 
 import (
-	"encoding/json"
-	"homefill/backend/db"
+	"homefill/backend/errset"
 	"homefill/backend/service"
 	"net/http"
 
@@ -13,17 +12,12 @@ func GetUserInfo(c *fiber.Ctx) error {
 
 	id, err := service.JwtMiddleWare(c)
 	if err != nil {
-		return err
+		return errset.ReturnError(err, c)
 	}
 
-	user, err := db.GetUserFromId(id)
+	data, err := service.GetUserById(id)
 	if err != nil {
-		return err
-	}
-
-	data, err := json.Marshal(user)
-	if err != nil {
-		return c.SendStatus(http.StatusInternalServerError)
+		return errset.ReturnError(err, c)
 	}
 
 	return c.Status(http.StatusOK).Send(data)
