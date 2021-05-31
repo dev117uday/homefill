@@ -66,10 +66,4 @@ func LoadConfig() {
 	GOOGLEAuthConfig.Scopes = []string{"https://www.googleapis.com/auth/userinfo.profile"}
 	GOOGLEAuthConfig.Endpoint = google.Endpoint
 	PGSQL_CS = fmt.Sprintf("user=%s dbname=%s password=%s host=%s port=%s sslmode=disable", SQL_DB_USER, SQL_DB_DB, SQL_DB_PASS, SQL_DB_HOST, SQL_DB_PORT)
-
-	Log.WithFields(logrus.Fields{
-		"fn":  "LoadConfig",
-		"err": "None",
-	}).Info("good to go")
-
 }

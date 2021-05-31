@@ -3,7 +3,6 @@ package service
 import (
 	"homefill/backend/auth"
 	"homefill/backend/db"
-	"homefill/backend/errset"
 	"homefill/backend/model"
 
 	"github.com/gofiber/fiber/v2"
@@ -11,14 +10,14 @@ import (
 
 func GenerateJwtTokenService(user *model.User) (string, error) {
 
-	err := db.InsertUser(user)
+	err := db.DB.Repo.InsertUser(user)
 	if err != nil {
-		return "", errset.ErrInternalServer
+		return "", err
 	}
 
 	token, err := auth.GenerateJwtToken(user.ID)
 	if err != nil {
-		return "", errset.ErrInternalServer
+		return "", err
 	}
 
 	return token, nil

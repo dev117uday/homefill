@@ -1,6 +1,8 @@
 # Project HomeFill Backend
 
 ## Things todo (Project Level)
-// TODO Create a error handling system
-// TODO Use some sort of logging system
+- [ x ] Create a error handling system
+- [ x ] Use some sort of logging system
+- [ x ] database repository pattern
+
 

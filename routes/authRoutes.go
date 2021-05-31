@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"homefill/backend/auth"
 	config "homefill/backend/config"
+	"homefill/backend/errset"
 	"homefill/backend/model"
 	"homefill/backend/service"
 	"net/http"
@@ -24,14 +25,14 @@ func AuthCallBack(c *fiber.Ctx) error {
 
 	content, err := auth.GetUserInfo(c.FormValue("state"), c.FormValue("code"))
 	if err != nil {
-		return c.SendStatus(http.StatusInternalServerError)
+		return errset.ReturnError(err, c)
 	}
 
 	var user model.User
 	json.Unmarshal(content, &user)
 	token, err := service.GenerateJwtTokenService(&user)
 	if err != nil {
-		return c.SendStatus(http.StatusInternalServerError)
+		return errset.ReturnError(err, c)
 	}
 
 	return c.Status(http.StatusOK).SendString(token)

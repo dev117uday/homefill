@@ -8,7 +8,14 @@ import (
 
 func main() {
 	config.LoadConfig()
-	db.ConnectTODB()
-	db.RunDBScripts()
+
+	pgRepository := &db.PostgreSQL{}
+
+	db.DB = db.DataBaseRepo{
+		Repo: pgRepository,
+	}
+	db.DB.Repo.ConnectTODB()
+	db.DB.Repo.RunDBScripts()
+
 	routes.StartServer()
 }

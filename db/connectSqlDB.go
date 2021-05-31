@@ -8,21 +8,17 @@ import (
 	_ "github.com/lib/pq"
 )
 
-var (
-	DB *sql.DB
-)
-
-func ConnectTODB() {
-	db, _ := sql.Open("postgres", config.PGSQL_CS)
-	_, err := db.Exec("select VERSION();")
+func (pg *PostgreSQL) ConnectTODB() {
+	dbtemp, _ := sql.Open("postgres", config.PGSQL_CS)
+	_, err := dbtemp.Exec("select VERSION();")
 	if err != nil {
 		logs.LogIt(logs.LogFatal, "ConnectTODB", "unable to connect to db", err)
 	}
-	DB = db
+	pg.db = dbtemp
 }
 
-func RunDBScripts() {
-	_, err := DB.Exec(`
+func (pg *PostgreSQL) RunDBScripts() {
+	_, err := pg.db.Exec(`
 		create table if not exists user_info (
 			UserId varchar(30) primary key,
 			Name       varchar(30) not null,

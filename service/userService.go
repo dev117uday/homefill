@@ -6,7 +6,7 @@ import (
 )
 
 func GetUserById(id string) ([]byte, error) {
-	user, err := db.GetUserFromId(id)
+	user, err := db.DB.Repo.GetUserFromId(id)
 	if err != nil {
 		return nil, err
 	}
