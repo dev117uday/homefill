@@ -39,3 +39,33 @@ Referenced by:
 	- `expire_time` : 3 hours
 
 ---
+
+**.env file**
+
+```dotenv
+GOOGLE_Client_ID=""
+GOOGLE_Client_Secret=""
+FRONTEND_URL=""
+BACKEND_URL=""
+JWT_KEY=""
+SQL_DB_USER=""
+SQL_DB_PASS=""
+SQL_DB_DB=""
+SQL_DB_HOST=""
+SQL_DB_PORT=""
+State=""
+PORT=":8080"
+//imp
+```
+
+**Database Setup**
+```sh
+sudo docker pull postgres:13.2-alpine
+sudo docker run --name go_svelte -e POSTGRES_PASSWORD=password -d -p 5432:5432 postgres:13.2-alpine
+sudo docker exec -it go_svelte bash
+psql -U postgres
+
+CREATE USER go_svelte WITH PASSWORD 'password';
+ALTER ROLE go_svelte WITH CREATEDB;
+CREATE DATABASE godb WITH OWNER go_svelte;
+```
