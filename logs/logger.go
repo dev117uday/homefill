@@ -1,7 +1,7 @@
 package logs
 
 import (
-	"homefill/backend/config"
+	"go-auth-google/backend/config"
 
 	"github.com/sirupsen/logrus"
 )

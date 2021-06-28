@@ -2,11 +2,11 @@ package routes
 
 import (
 	"encoding/json"
-	"homefill/backend/auth"
-	config "homefill/backend/config"
-	"homefill/backend/errset"
-	"homefill/backend/model"
-	"homefill/backend/service"
+	"go-auth-google/backend/auth"
+	config "go-auth-google/backend/config"
+	"go-auth-google/backend/errset"
+	"go-auth-google/backend/model"
+	"go-auth-google/backend/service"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"

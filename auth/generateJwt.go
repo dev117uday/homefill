@@ -1,9 +1,9 @@
 package auth
 
 import (
-	config "homefill/backend/config"
-	"homefill/backend/errset"
-	"homefill/backend/logs"
+	config "go-auth-google/backend/config"
+	"go-auth-google/backend/errset"
+	"go-auth-google/backend/logs"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"

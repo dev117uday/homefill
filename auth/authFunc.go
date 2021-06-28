@@ -2,9 +2,9 @@ package auth
 
 import (
 	"fmt"
-	config "homefill/backend/config"
-	"homefill/backend/errset"
-	"homefill/backend/logs"
+	config "go-auth-google/backend/config"
+	"go-auth-google/backend/errset"
+	"go-auth-google/backend/logs"
 	"io/ioutil"
 	"net/http"
 

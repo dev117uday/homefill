@@ -1,8 +1,9 @@
 package routes
 
 import (
-	config "homefill/backend/config"
-	"homefill/backend/logs"
+	"fmt"
+	config "go-auth-google/backend/config"
+	"go-auth-google/backend/logs"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -24,8 +25,9 @@ func StartServer() {
 	// ---------------------------------------
 
 	// Starting Server
-	err := app.Listen(config.PORT)
+	err := app.Listen(config.BACKEND_URL)
 	if err != nil {
+		fmt.Println(err)
 		logs.LogIt(logs.LogFatal, "StartServer", "unable to start server", err)
 	}
 }

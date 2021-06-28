@@ -1,9 +1,9 @@
 package main
 
 import (
-	config "homefill/backend/config"
-	"homefill/backend/db"
-	"homefill/backend/routes"
+	config "go-auth-google/backend/config"
+	"go-auth-google/backend/db"
+	"go-auth-google/backend/routes"
 )
 
 func main() {

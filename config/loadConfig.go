@@ -58,7 +58,7 @@ func LoadConfig() {
 	SQL_DB_HOST = os.Getenv("SQL_DB_HOST")
 	SQL_DB_PORT = os.Getenv("SQL_DB_PORT")
 	State = os.Getenv("State")
-	PORT = os.Getenv("PORT")
+	//PORT = os.Getenv("PORT")
 
 	GOOGLEAuthConfig.RedirectURL = fmt.Sprintf("%s/callback", BACKEND_URL)
 	GOOGLEAuthConfig.ClientID = GOOGLE_Client_ID

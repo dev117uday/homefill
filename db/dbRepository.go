@@ -2,7 +2,7 @@ package db
 
 import (
 	"database/sql"
-	"homefill/backend/model"
+	"go-auth-google/backend/model"
 )
 
 type DatabaseInterface interface {

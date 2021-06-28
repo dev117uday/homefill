@@ -1,9 +1,9 @@
 package service
 
 import (
-	"homefill/backend/auth"
-	"homefill/backend/db"
-	"homefill/backend/model"
+	"go-auth-google/backend/auth"
+	"go-auth-google/backend/db"
+	"go-auth-google/backend/model"
 
 	"github.com/gofiber/fiber/v2"
 )

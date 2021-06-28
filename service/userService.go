@@ -2,7 +2,7 @@ package service
 
 import (
 	"encoding/json"
-	"homefill/backend/db"
+	"go-auth-google/backend/db"
 )
 
 func GetUserById(id string) ([]byte, error) {

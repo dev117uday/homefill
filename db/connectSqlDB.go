@@ -2,8 +2,8 @@ package db
 
 import (
 	"database/sql"
-	config "homefill/backend/config"
-	"homefill/backend/logs"
+	config "go-auth-google/backend/config"
+	"go-auth-google/backend/logs"
 
 	_ "github.com/lib/pq"
 )

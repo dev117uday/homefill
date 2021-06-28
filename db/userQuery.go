@@ -3,9 +3,9 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"homefill/backend/errset"
-	"homefill/backend/logs"
-	"homefill/backend/model"
+	"go-auth-google/backend/errset"
+	"go-auth-google/backend/logs"
+	"go-auth-google/backend/model"
 )
 
 func (pg *PostgreSQL) GetUserFromId(id string) (*model.User, error) {

@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"homefill/backend/errset"
-	"homefill/backend/service"
+	"go-auth-google/backend/errset"
+	"go-auth-google/backend/service"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"

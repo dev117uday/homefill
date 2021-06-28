@@ -1,4 +1,4 @@
-module homefill/backend
+module go-auth-google/backend
 
 go 1.16
 
